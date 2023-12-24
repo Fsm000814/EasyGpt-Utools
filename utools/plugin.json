@@ -1,0 +1,11 @@
+{
+	"main": "https://aichatxadmin.dev.52abp.com/client/chat",
+	"logo": "logo.png",
+	"features": [
+		{
+		  "code": "AIChatX",
+		  "explain": "hello AIChatX",
+			"cmds":["AIChatX", "aichatx"]
+		}
+	]
+}
