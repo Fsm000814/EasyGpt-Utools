@@ -1,12 +1,18 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import MainLayout from '../views/main-layout.vue'
+import MessageChat from '../views/message-chat.vue'
+import Translate from '../views/translate.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'main-layout',
-    component: MainLayout
+    name: 'message-chat',
+    component: MessageChat,
   },
+  {
+    path: '/translate',
+    name: 'translate',
+    component: Translate,
+  }
 ]
 const router = createRouter({
   history: createWebHashHistory(),
