@@ -31,7 +31,8 @@
     "src/**/*.tsx",  // 包含所有 src 目录下的 TypeScript with JSX 文件
     "src/**/*.vue",  // 包含所有 src 目录下的 Vue 文件
     "tests/**/*.ts",  // 包含所有 tests 目录下的 TypeScript 文件
-    "tests/**/*.tsx"  // 包含所有 tests 目录下的 TypeScript with JSX 文件
+    "tests/**/*.tsx", // 包含所有 tests 目录下的 TypeScript with JSX 文件
+    "src/**/*.d.ts"
   ],
   // 排除的文件
   "exclude": [

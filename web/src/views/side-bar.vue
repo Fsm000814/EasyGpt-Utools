@@ -1,46 +1,44 @@
 <template>
-  <!-- <router-view /> -->
-  <a-layout>
-    <a-layout-sider
-      v-model:collapsed="collapsed"
-      collapsible
-      class="left"
-      style="overflow: auto"
-    >
-      <div>
-        <img src="../assets/logo.png" class="logo" />
-      </div>
-      <a-menu
-        v-model:selectedKeys="selectedKeys"
-        theme="dark"
-        mode="inline"
-        @click="handleMenuChange"
-      >
+
+  <div class="side-bar" :class="collapsed ? 'collapsed' : ''" >
+    <div class="logo">
+      <img src="../assets/logo.png" class="logo-img" />
+    </div>
+    <div class="menu">
+      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline" @click="handleMenuChange">
         <a-menu-item v-for="menuItem in menuItems" :key="menuItem.menu">
           <component :is="menuItem.icon" />
-          <span>{{ menuItem.name }}</span>
+          <span v-if="!collapsed">{{ menuItem.name }}</span>
         </a-menu-item>
       </a-menu>
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #fff; padding: 0" />
-      <a-layout-content>
-        <router-view />
-      </a-layout-content>
-    </a-layout>
-  </a-layout>
+    </div>
+    <div
+      class="bottom-bar"
+      @click="collapsed = !collapsed"
+    >
+    <RightCircleOutlined v-if="collapsed"/>
+    <LeftCircleOutlined v-else/>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import {
   UserOutlined,
   CommentOutlined,
   UploadOutlined,
   SettingFilled,
   BlockOutlined,
+  RightCircleOutlined,
+  LeftCircleOutlined
 } from '@ant-design/icons-vue';
 
-export default {
+export default defineComponent({
+  components: {
+    RightCircleOutlined,
+    LeftCircleOutlined
+  },
   name: 'side-bar',
   data() {
     return {
@@ -65,7 +63,7 @@ export default {
           name: '模板配置',
           menu: 'template-configuration',
         },
-        { key: '/setting', icon: SettingFilled, name: '设置', menu: 'setting' },
+        { key: '/message-setting', icon: SettingFilled, name: '设置', menu: 'message-setting' },
         { key: '/user', icon: UserOutlined, name: '用户', menu: 'user' },
       ],
     };
@@ -80,24 +78,64 @@ export default {
       this.$router.push({ path: item.key });
     },
   },
-};
+});
 </script>
 
-<style>
-.logo {
-  height: 32px;
-  margin: 16px;
-  margin-left: 36%;
+<style lang="scss">
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  height: 100%;
+  flex-shrink: 0;
+  background-color: #001529;
+  transition: width 0.3s ease;
+
+  &.collapsed {
+    width: 70px;
+  }
+
+  .logo {
+    flex-shrink: 0;
+
+    .logo-img {
+      height: 24px;
+      margin: 16px;
+      margin-left: 36%;
+    }
+  }
+
+  .menu {
+    flex-grow: 1;
+  }
+
+  .bottom-bar {
+    flex-shrink: 0;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    background-color: #03284a;
+  }
 }
 
-.left {
-  overflow: 'auto';
-  height: 100vh;
-  position: 'fixed';
-  left: 0;
-  top: 0;
-  bottom: 0;
-  color: rgb(255, 255, 255);
-  background: #1890ff;
+
+
+.animation-enter-from,
+.animation-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+.animation-enter-to,
+.animation-leave-from {
+  opacity: 1;
+}
+.animation-enter-active {
+  transition: all 0.7s ease;
+}
+.animation-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.6, 0.6, 1);
 }
 </style>
