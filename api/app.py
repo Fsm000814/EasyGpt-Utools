@@ -62,7 +62,7 @@ def initialize_extensions(app):
     # 同步任务扩展
     # ext_celery.init_app(app)
     # 登录扩展
-    ext_login.init_app(app)
+    # ext_login.init_app(app)
     # 邮件扩展
     # ext_mail.init_app(app)
     # 异常捕获扩展
@@ -211,6 +211,7 @@ def health():
 @app.route('/db-pool-stat')
 def pool_stat():
     # 获取数据库引擎
+
     engine = db.engine
     # 返回数据库连接池的状态信息
     return {
